@@ -29,11 +29,11 @@ func New(addr string) (*Connection, error) {
 		Notification: make(chan []byte, 10),
 		Errs:         make(chan error),
 	}
-	go heartbeat(&rv)
+	go watchConnection(&rv)
 	return &rv, nil
 }
 
-func heartbeat(con *Connection) {
+func watchConnection(con *Connection) {
 	buf := make([]byte, 1)
 	for {
 		con.conn.SetDeadline(time.Now().Add(15 * time.Second))

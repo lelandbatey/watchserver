@@ -24,9 +24,9 @@ func isDir(path string) bool {
 }
 
 // Creates a TCP server which watches a particular file system path provided by
-// the user via command line argument. That server accepts any connection on
-// and whenever it receives any file system event for the directory it's
-// watching, it writes a single null byte across all connections.
+// the user via command line argument. That server accepts any connection and
+// whenever it receives any file system event for the directory it's watching,
+// it writes a single null byte across all connections.
 func main() {
 
 	var host = flag.String("host", "0.0.0.0", "Host to attempt to connect to")
@@ -99,6 +99,7 @@ func main() {
 		}
 	}()
 
+	// Set up the filesystem monitoring
 	event_chan := make(chan notify.EventInfo, 1)
 	path, err := filepath.Abs(os.Args[1])
 	if err != nil {
